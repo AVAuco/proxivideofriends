@@ -1,16 +1,15 @@
 # ProxiVideoFriends: Video-Based Proxemics and Social Relationship Understanding
 
-### 📚 Official Repository for **ProxiVideoFriends** -- Video Proxemics Dataset and Multitask Temporal Model
+### 📚 Official Repository for **ProxiVideoFriends**: Revisiting Proxemics through Temporal and Social Reasoning
 
 Developed by **Isabel Jiménez-Velasco**, **Rafael Muñoz-Salinas**,
 **Vicky Kalogeiton**, and **Manuel J. Marín-Jiménez**.
 
 <div align="center">
 
-  📄 **Paper:** *ProxiVideoFriends: Revisiting Proxemics through Temporal
-and Social Reasoning*\
-🎥 **Task:** Video-based Proxemics & Social Relationship Recognition\
-📊 **Dataset:** ProxiVideoFriends (Friends TV Series)
+📄 <b>Paper:</b> <a href="https://www.researchgate.net/publication/401588701_ProxiVideoFriends_Revisiting_Proxemics_through_Temporal_and_Social_Reasoning">ProxiVideoFriends: Revisiting Proxemics through Temporal and Social Reasoning</a><br>
+🎥 <b>Task:</b> Video-based Proxemics &amp; Social Relationship Recognition<br>
+📊 <b>Dataset:</b> ProxiVideoFriends (Friends TV Series)
 
 </div>
 
@@ -69,18 +68,17 @@ This dataset enables the study of:
 -   Multimodal cues (video + audio)
 
 ------------------------------------------------------------------------
-
 ## Dataset Characteristics
 
-  Property                   Value
-  -------------------------- -----------------------
-  Source                     *Friends* -- Season 3
-  Annotated Frames           **42,117**
-  Annotated Pairs            **103,284**
-  Proxemic Interactions      **43,629**
-  Non-contact Interactions   **59,655**
-  Average Clip Length        4.7 seconds
-  Frame Rate                 24 fps
+| Property | Value |
+|---|---|
+| Source | *Friends* — Season 3 |
+| Annotated Frames | **42,117** |
+| Annotated Pairs | **103,284** |
+| Proxemic Interactions | **43,629** |
+| Non-contact Interactions | **59,655** |
+| Average Clip Length | 4.7 seconds |
+| Frame Rate | 24 fps |
 
 Each frame contains annotations for:
 
@@ -95,11 +93,11 @@ Each frame contains annotations for:
 
 Physical contact is categorized into **six proxemic classes**:
 
--   Hand--Hand\
--   Hand--Shoulder\
--   Shoulder--Shoulder\
--   Hand--Torso\
--   Hand--Elbow\
+-   Hand--Hand
+-   Hand--Shoulder
+-   Shoulder--Shoulder
+-   Hand--Torso
+-   Hand--Elbow
 -   Elbow--Shoulder
 
 ------------------------------------------------------------------------
@@ -108,11 +106,11 @@ Physical contact is categorized into **six proxemic classes**:
 
 Relationships follow the taxonomy of the **PISC dataset**:
 
--   Friends\
--   Family\
--   Couple\
--   Professional\
--   Commercial\
+-   Friends
+-   Family
+-   Couple
+-   Professional
+-   Commercial
 -   No Relation
 
 ------------------------------------------------------------------------
@@ -149,11 +147,11 @@ social representations**.
 
 Each video clip is processed using **three visual inputs**:
 
-  Input       Description
-  ----------- ----------------------------------------
-  Person P0   Crop of first individual
-  Person P1   Crop of second individual
-  Pair Crop   Joint crop containing both individuals
+| Input | Description |
+|---|---|
+| Person P0 | Crop of first individual |
+| Person P1 | Crop of second individual |
+| Pair Crop | Joint crop containing both individuals |
 
 This design allows the model to capture:
 
@@ -206,13 +204,13 @@ This confirms that proxemics is mainly a **visual task**.
 
 ## Comparison with Baselines
 
-  Method                       mAP (Proxemics)
-  ---------------------------- -----------------
-  Frame-level ProxemicsNet++   17.9
-  Qwen3-VL                     28.1
-  Qwen3-VL Fine-Tuned          30.6
-  Video Model (ResNet)         32.5
-  **Ours (Multitask Model)**   **40.1**
+| Method | mAP (Proxemics) |
+|:--|--:|
+| Frame-level ProxemicsNet++ | 17.9 |
+| Qwen3-VL | 28.1 |
+| Qwen3-VL (Fine-Tuned) | 30.6 |
+| Video Model (ResNet) | 32.5 |
+| **Ours (Multitask Model)** | **40.1** |
 
 Temporal modeling significantly improves performance.
 
@@ -220,11 +218,11 @@ Temporal modeling significantly improves performance.
 
 ## Effect of Multitask Learning
 
-  Model                       Proxemics mAP   Relationship Acc
-  --------------------------- --------------- ------------------
-  Proxemics Only              32.5            ---
-  Relationship Only           ---             39.5
-  **Joint Multitask Model**   **40.1**        **45.9**
+| Model | Proxemics mAP | Relationship Acc |
+|:--|--:|--:|
+| Proxemics Only | 32.5 | — |
+| Relationship Only | — | 39.5 |
+| **Joint Multitask Model** | **40.1** | **45.9** |
 
 Multitask learning enables the model to learn **shared social cues**,
 improving both tasks.
@@ -260,11 +258,15 @@ improving both tasks.
 If you use this dataset or model in your research, please cite:
 
 ``` bibtex
-@inproceedings{JimenezVelasco2026,
-  title={ProxiVideoFriends: Revisiting Proxemics through Temporal and Social Reasoning},
-  author={Jimenez-Velasco, Isabel and Muñoz-Salinas, Rafael and Kalogeiton, Vicky and Marín-Jiménez, Manuel J.},
-  booktitle={VISAPP},
-  year={2026}
+@inproceedings{JimenezVelasco2026ProxiVideoFriends,
+  author    = {Jim{\'e}nez-Velasco, I. and Mu{\~n}oz-Salinas, R. and Kalogeiton, V. and Mar{\'i}n-Jim{\'e}nez, M. J.},
+  title     = {ProxiVideoFriends: Revisiting Proxemics through Temporal and Social Reasoning},
+  booktitle = {Proceedings of the 21st International Conference on Computer Vision Theory and Applications (VISAPP)},
+  volume    = {1},
+  pages     = {107--116},
+  year      = {2026},
+  isbn      = {978-989-758-804-4},
+  issn      = {2184-4321}
 }
 ```
 
