@@ -41,6 +41,10 @@ Our findings show that:
 
 ## 🤖 Why this matters
 
+<table>
+  <tr>
+    <td valign="middle" width="60%">
+      
 A socially intelligent system should not only detect people and actions, but also understand **how people relate in space**.
 
 Without reliable proxemics estimation:
@@ -50,6 +54,14 @@ Without reliable proxemics estimation:
 - a simulation may fail to reproduce realistic human interaction
 
 Proxemics is not just geometry. It also carries **social meaning**.
+</td>
+    <td valign="middle" width="40%">
+      <p align="center">
+        <img src="assets/robot.png" width="95%">
+      </p>
+    </td>
+  </tr>
+</table>
 
 ---
 ## ❗ What is missing in prior work
@@ -70,7 +82,7 @@ This repository addresses that gap.
   </td>
     <td valign="middle" width="40%">
       <p align="center">
-        <img src="assets/gap_overview.png" width="95%">
+        <img src="assets/gap.png" width="95%">
       </p>
     </td>
   </tr>
@@ -187,7 +199,7 @@ We use:
 We also explore a multimodal extension using **Whisper audio embeddings** to study whether audio improves performance.
 
 <p align="center">
-  <img src="assets/method_overview.png" width="900">
+  <img src="assets/methodology.png" width="900">
 </p>
 
 ---
@@ -211,7 +223,7 @@ For each video sequence:
   - **fine-tuned**
 
 <p align="center">
-  <img src="assets/vlm_baseline.png" width="900">
+  <img src="assets/vlm_prompt.png" width="900">
 </p>
 
 ---
