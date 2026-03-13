@@ -1,261 +1,321 @@
-# ProxiVideoFriends: Video-Based Proxemics and Social Relationship Understanding
+<h1 align="center">ProxiVideoFriends: Revisiting Proxemics through Temporal and Social Reasoning</h1>
 
-### 📚 Official Repository for **ProxiVideoFriends**: Revisiting Proxemics through Temporal and Social Reasoning
+<p align="center">
+Developed by <b>Isabel Jiménez-Velasco</b>, <b>Rafael Muñoz-Salinas</b>,
+<b>Vicky Kalogeiton</b>, and <b>Manuel J. Marín-Jiménez</b>
+</p>
 
-Developed by **Isabel Jiménez-Velasco**, **Rafael Muñoz-Salinas**,
-**Vicky Kalogeiton**, and **Manuel J. Marín-Jiménez**.
+<p align="center">
+  <a href="https://www.researchgate.net/publication/401588701_ProxiVideoFriends_Revisiting_Proxemics_through_Temporal_and_Social_Reasoning"><img src="https://img.shields.io/badge/Paper-VISAPP%202026-blue"></a>
+  <a href="#dataset"><img src="https://img.shields.io/badge/Dataset-ProxiVideoFriends-green"></a>
+</p>
 
-<div align="center">
+Official repository for **ProxiVideoFriends**, the first benchmark for **video-based proxemics classification**, and for our **temporal multitask model** that jointly predicts **proxemics** and **social relationships**.
 
-📄 <b>Paper:</b> <a href="https://www.researchgate.net/publication/401588701_ProxiVideoFriends_Revisiting_Proxemics_through_Temporal_and_Social_Reasoning">ProxiVideoFriends: Revisiting Proxemics through Temporal and Social Reasoning</a><br>
-🎥 <b>Task:</b> Video-based Proxemics &amp; Social Relationship Recognition<br>
-📊 <b>Dataset:</b> ProxiVideoFriends (Friends TV Series)
+<p align="center">
+  <img src="assets/teaser.png" width="900">
+</p>
 
-</div>
+---
 
-------------------------------------------------------------------------
+## 🌍 Overview
 
-## 🧠 Overview
+Understanding **how close is too close** is essential for socially aware AI systems such as **social robots**, **virtual avatars**, and **embodied agents in VR/AR**. Proxemics, the study of how humans use space and physical contact in social interactions, is a fundamental component of non-verbal communication.
 
-Understanding **human spatial behavior** is essential for building
-socially-aware artificial intelligence systems. In human interactions,
-**proxemics** refers to how people use physical space and body contact
-to convey social meaning.
+Yet, despite recent progress in video understanding and multimodal reasoning, **proxemics in video remains largely unexplored**.
 
-Applications include:
+In this project, we introduce:
 
--   Human-Robot Interaction
--   Socially aware virtual assistants
--   AR/VR avatars
--   Smart surveillance
--   Social interaction understanding
+- **ProxiVideoFriends**, the **first dataset explicitly designed for proxemics estimation in video**
+- a **temporal multitask model** that jointly predicts **proxemics** and **social relationships**
+- a systematic comparison against both **image-based baselines** and a modern **Video-Language Model (Qwen3-VL-30B)**
 
-While many computer vision systems recognize **actions**, few models
-understand **how people physically interact and relate socially over
-time**.
+Our findings show that:
 
-This project introduces:
+- **temporal modeling matters**
+- **joint spatial-social learning gives the biggest boost**
+- **audio helps relationship recognition, but not proxemics**
+- **modern VLMs still struggle with fine-grained physical contact understanding**
 
--   **ProxiVideoFriends**, the **first video dataset** specifically
-    designed for proxemics analysis.
--   A **temporal multitask deep learning model** that jointly predicts:
-    -   **Proxemic interactions**
-    -   **Social relationships**
+---
 
-Unlike previous image-based approaches, this work models **temporal
-dynamics in human interactions**, significantly improving performance.
+## 🤖 Why this matters
 
-The project extends previous work on **ProxemicsNet++** for still
-images.
+A socially intelligent system should not only detect people and actions, but also understand **how people relate in space**.
 
-------------------------------------------------------------------------
+Without reliable proxemics estimation:
 
-# 🎬 ProxiVideoFriends Dataset
+- a robot may invade personal space
+- a virtual avatar may behave inappropriately
+- a simulation may fail to reproduce realistic human interaction
 
-## Motivation
+Proxemics is not just geometry. It also carries **social meaning**.
 
-Most proxemics datasets operate on **static images**, which cannot
-capture the **temporal evolution of human interactions**.
+---
+## ❗ What is missing in prior work
 
-To address this limitation, we introduce **ProxiVideoFriends**, a
-dataset built from the TV series *Friends* that contains rich real-world
-interactions between characters.
+<table>
+  <tr>
+    <td valign="middle" width="60%">
 
-This dataset enables the study of:
+Despite its importance, proxemics research still suffers from four major limitations:
 
--   Physical contact dynamics
--   Social relationships
--   Multimodal cues (video + audio)
+1. **No dedicated video benchmark** for proxemics  
+2. Most methods are still **frame-based**  
+3. Proxemics is often modeled **without social context**  
+4. Modern VLMs have not been systematically evaluated on this fine-grained task  
 
-------------------------------------------------------------------------
-## Dataset Characteristics
+This repository addresses that gap.
 
-| Property | Value |
-|---|---|
-| Source | *Friends* — Season 3 |
-| Annotated Frames | **42,117** |
-| Annotated Pairs | **103,284** |
-| Proxemic Interactions | **43,629** |
-| Non-contact Interactions | **59,655** |
+  </td>
+    <td valign="middle" width="40%">
+      <p align="center">
+        <img src="assets/gap_overview.png" width="95%">
+      </p>
+    </td>
+  </tr>
+</table>
+
+---
+
+## ✨ Contributions
+
+- We introduce **ProxiVideoFriends**, the **first video benchmark for proxemics**, jointly annotated for **physical contact** and **social relationships**.
+- We propose a **temporal multitask architecture** that jointly learns proxemics and relationship recognition from video.
+- We benchmark against:
+  - **ProxemicsNet++** as a frame-based baseline
+  - **Qwen3-VL-30B** in both **zero-shot** and **fine-tuned** settings
+- We show that:
+  - **temporal modeling is essential**
+  - **social relationships improve proxemics recognition**
+  - **audio is useful for relationships but not for proxemics**
+
+---
+
+## 🎬 Dataset: ProxiVideoFriends
+
+Most proxemics datasets operate on **static images**, which cannot capture the **temporal evolution of human interactions**.
+
+To address this limitation, we introduce **ProxiVideoFriends**. ProxiVideoFriends is built from **Season 3 of _Friends_** and is designed to support the study of proxemics in **dynamic, realistic social scenes**.
+
+Each annotated frame includes:
+
+- bounding boxes of visible characters
+- character identities
+- pair-level **proxemics labels**
+- pair-level **social relationship labels**
+
+### Proxemics classes
+- Hand-Hand
+- Hand-Shoulder
+- Shoulder-Shoulder
+- Hand-Torso
+- Hand-Elbow
+- Elbow-Shoulder
+
+### Relationship classes
+- Friends
+- Family
+- Couple
+- Professional
+- Commercial
+- No Relation
+
+### Dataset statistics
+
+| Statistic | Value |
+|---|---:|
+| Annotated frames | 42,117 |
+| Labeled pairs | 103,284 |
+| Proxemic interactions | 43,629 |
+| Non-contact interactions | 59,655 |
 | Average Clip Length | 4.7 seconds |
 | Frame Rate | 24 fps |
 
-Each frame contains annotations for:
+### Splits
 
--   Person **bounding boxes**
--   **Character identity**
--   **Proxemic interaction type**
--   **Social relationship**
+We use **2-fold cross-validation** at the **episode level**:
+
+| Split setting | Value |
+|---|---:|
+| Training episodes | 13 |
+| Testing episodes | 12 |
+| Visual overlap | None |
+
+<p align="center">
+  <img src="assets/dataset_overview.png" width="900">
+</p>
+
+---
+
+## 🧠 Method
+
+We propose a **temporal multitask model** for joint proxemics and relationship classification.
+
+For each target pair, the model processes three visual inputs:
+
+- crop of **person 0**
+- crop of **person 1**
+- **joint crop** containing both individuals
+
+The two person branches share weights, while the pair branch remains independent to preserve interaction context.
+
+### Backbone
+Each stream is encoded with a pretrained temporal video backbone, such as:
+
+- **ResNet(2+1)D**
+- **mViTv2**
+
+### Fusion
+The three visual embeddings are combined using one of two fusion strategies:
+
+- **Cross-Attention (CA) fusion**
+- **CLS-token Transformer fusion**
+
+### Multitask learning
+The model predicts:
+
+- **proxemics** as a **multi-label** task
+- **social relationship** as a **multi-class** task
+
+We use:
+
+- **binary cross-entropy** for proxemics
+- **cross-entropy** for relationships
+
+### Optional audio branch
+We also explore a multimodal extension using **Whisper audio embeddings** to study whether audio improves performance.
+
+<p align="center">
+  <img src="assets/method_overview.png" width="900">
+</p>
+
+---
+
+## 🧪 Baselines
+
+We compare our method against two complementary baselines.
+
+### 1. Frame-based baseline
+We use **ProxemicsNet++**, a state-of-the-art method for proxemics classification in still images, applied **frame by frame**.
+
+### 2. Video-Language Model baseline
+We evaluate **Qwen3-VL-30B** as a prompt-based video baseline.
+
+For each video sequence:
+
+- the target pair is highlighted with colored circles
+- the model receives a structured proxemics prompt
+- we test both:
+  - **zero-shot**
+  - **fine-tuned**
+
+<p align="center">
+  <img src="assets/vlm_baseline.png" width="900">
+</p>
+
+---
+
+## 📊 Results
+
+### Proxemics classification on ProxiVideoFriends
+
+| Method | mAP |
+|---|---:|
+| ProxemicsNet++ | 17.9 |
+| Qwen3-VL-30B | 28.1 |
+| Qwen3-VL-30B Fine-Tuned | 30.6 |
+| mViTv2 | 30.2 |
+| ResNet(2+1)D | 32.5 |
+| 🏆 **Ours (Multitask Model)** | **40.1** |
+
+*Best result in bold.*
+
+These results show that:
+- video models clearly outperform frame-based approaches
+- multitask learning provides the strongest improvement
+- our method improves over the fine-tuned VLM by **9.5 mAP**
+
+### 🤝 Effect of multitask learning
+
+| Training Setup | Proxemics mAP | Relationship Acc | Relationship Macro-F1 |
+|---|---:|---:|---:|
+| Proxemics Only | 32.5 | - | - |
+| Relationship Only | - | 39.5 | 17.0 |
+| Multitask (CA Fusion) | 39.2 | 43.1 | 18.1 |
+| **Multitask (CLS Fusion)** | **40.1** | **45.9** | **20.1** |
+
+*Best results in bold.*
+
+Joint learning improves both tasks, confirming that **proxemics and social relationships are complementary**.
+
+### 🔊 Effect of audio
+
+| Model | Proxemics mAP | Relationship Acc | Relationship Macro-F1 |
+|---|---:|---:|---:|
+| **Multitask (Visual Only)** | **40.1** | 45.9 | 20.1 |
+| Multitask + Audio | 37.6 | **46.2** | **25.0** |
+
+*Best result for each metric in bold.*
+
+Audio improves **relationship classification**, but not **proxemics**.
+
+This suggests that:
+- proxemics is primarily **visual**
+- relationships benefit from **speech cues**, such as tone and prosody
+
+---
+
+## 🎭 Qualitative results
+
+Our model performs well on many realistic, dynamic interactions, but proxemics remains challenging.
+
+Typical failure modes include:
+
+- **ambiguous physical contact**, such as confusing Hand-Hand with Hand-Elbow
+- **occlusions and scene complexity**
+- difficult camera angles
+- overlapping people in crowded scenes
+
+<p align="center">
+  <img src="assets/failure_cases.png" width="900">
+</p>
+
+---
+
+## 📁 Repository structure
+
+```text
+ProxiVideoFriends/
+├── README.md
+├── assets/
+
+```
+**COMING SOON**
 
 ------------------------------------------------------------------------
 
-## Proxemics Classes
-
-Physical contact is categorized into **six proxemic classes**:
-
--   Hand--Hand
--   Hand--Shoulder
--   Shoulder--Shoulder
--   Hand--Torso
--   Hand--Elbow
--   Elbow--Shoulder
-
-------------------------------------------------------------------------
-
-## Social Relationship Classes
-
-Relationships follow the taxonomy of the **PISC dataset**:
-
--   Friends
--   Family
--   Couple
--   Professional
--   Commercial
--   No Relation
-
-------------------------------------------------------------------------
-
-## Additional Annotations
-
-The dataset also includes:
-
--   **2D keypoints**
--   **DensePose body maps**
--   **Bounding boxes**
--   **Character identities**
--   **Audio segments**
-
-This allows research on **multimodal human interaction modeling**.
-
-------------------------------------------------------------------------
-
-# 🧠 Proposed Method
-
-## Temporal Multitask Model
-
-The proposed architecture jointly solves two tasks:
-
-1️⃣ **Proxemics Classification (Multi-Label)**\
-2️⃣ **Social Relationship Classification (Multi-Class)**
-
-Learning both tasks simultaneously improves performance through **shared
-social representations**.
-
-------------------------------------------------------------------------
-
-## Model Inputs
-
-Each video clip is processed using **three visual inputs**:
-
-| Input | Description |
-|---|---|
-| Person P0 | Crop of first individual |
-| Person P1 | Crop of second individual |
-| Pair Crop | Joint crop containing both individuals |
-
-This design allows the model to capture:
-
--   Individual body posture
--   Interaction context
-
-------------------------------------------------------------------------
-
-## Temporal Backbone
-
-Video features are extracted using pretrained backbones:
-
--   **ResNet(2+1)D**
--   **mViTv2**
-
-Both pretrained on **Kinetics-400**.
-
-------------------------------------------------------------------------
-
-## Fusion Strategies
-
-Two fusion mechanisms are explored:
-
-### Cross-Attention Fusion
-
--   Exchanges information between branches
--   Produces **Contextual Attention Features**
-
-### CLS Token Fusion
-
--   Inspired by Transformer architectures
--   Uses self-attention to merge representations
-
-------------------------------------------------------------------------
-
-## Optional Audio Branch
-
-Audio embeddings extracted using **Whisper** can be integrated.
-
-Observations:
-
--   Audio improves **relationship classification**
--   Audio has **minimal impact on proxemics**
-
-This confirms that proxemics is mainly a **visual task**.
-
-------------------------------------------------------------------------
-
-# 📊 Results
-
-## Comparison with Baselines
-
-| Method | mAP (Proxemics) |
-|:--|--:|
-| Frame-level ProxemicsNet++ | 17.9 |
-| Qwen3-VL | 28.1 |
-| Qwen3-VL (Fine-Tuned) | 30.6 |
-| Video Model (ResNet) | 32.5 |
-| **Ours (Multitask Model)** | **40.1** |
-
-Temporal modeling significantly improves performance.
-
-------------------------------------------------------------------------
-
-## Effect of Multitask Learning
-
-| Model | Proxemics mAP | Relationship Acc |
-|:--|--:|--:|
-| Proxemics Only | 32.5 | — |
-| Relationship Only | — | 39.5 |
-| **Joint Multitask Model** | **40.1** | **45.9** |
-
-Multitask learning enables the model to learn **shared social cues**,
-improving both tasks.
-
-------------------------------------------------------------------------
-
-# 🧪 Repository Structure
-
-  **COMING SOON**
-
-------------------------------------------------------------------------
-
-# ⚙️ Installation
+## ⚙️ Installation
 
 **COMING SOON**
 
 ------------------------------------------------------------------------
 
-# 🚀 Training
+## 🏋️ Training
 
 **COMING SOON**
 
 ------------------------------------------------------------------------
 
-# 🔎 Inference
+## 📏 Inference
 
 **COMING SOON**
 
 ------------------------------------------------------------------------
 
-# 📚 Citation
+## 📌 Citation
 
-If you use this dataset or model in your research, please cite:
+If you use this repository, dataset, or method in your research, please cite:
 
 ``` bibtex
 @inproceedings{JimenezVelasco2026ProxiVideoFriends,
@@ -272,7 +332,7 @@ If you use this dataset or model in your research, please cite:
 
 ------------------------------------------------------------------------
 
-# 🤝 Acknowledgments
+## 🙏 Acknowledgments
 
 This research was supported by:
 
