@@ -117,7 +117,7 @@ audio_emmbeddings_dir = os.path.join(datasetDir, 'audio_embeddings')
 # -----------------------------
 #  W&B naming
 # -----------------------------
-projectname = f'proxiVideosFriends_prueba_{task}_{use_backbone}_{fusion}_temporal'
+projectname = f'proxiVideosFriends_{task}_{use_backbone}_{fusion}_temporal'
 
 if onlyPairRGB:
     groupname=typeImg+'_onlypair_'+backbone_size
