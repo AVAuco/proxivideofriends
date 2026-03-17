@@ -36,8 +36,8 @@ def parse_args():
     parser.add_argument('--lr', type=float,  help='lrate', required=False, default=0.0001)
     parser.add_argument('--set', type=int,  help='Set (1 or 2)', required=False, default=1)
     # Temporal configuration
-    parser.add_argument('--window',type=int,  help='Frames sequence size', required=False, default=3)
-    parser.add_argument('--stride',type=int,  help='Stride for the sliding window', required=False, default=3)
+    parser.add_argument('--window',type=int,  help='Frames sequence size', required=False, default=16)
+    parser.add_argument('--stride',type=int,  help='Stride for the sliding window', required=False, default=16)
     # Input branches
     parser.add_argument('--onlyPairRGB',action='store_true',help='Only context brach of RGB model',default=False)
     parser.add_argument('--audio',action='store_true',help='Use audio branch',default=False)
