@@ -30,7 +30,7 @@ from train.trainer import fit
 def parse_args():
     parser = argparse.ArgumentParser(description='Training and testing script.')
     # Training hyperparameters
-    parser.add_argument('--batch',type=int,  help='Size of each batch', required=False, default=6)#32
+    parser.add_argument('--batch',type=int,  help='Size of each batch', required=False, default=16)
     parser.add_argument('--epoch', type=int,  help='Number of epochs', required=False, default=25)
     parser.add_argument('--opt',type=str,  help='optimizer', required=False, default="AdamW")
     parser.add_argument('--lr', type=float,  help='lrate', required=False, default=0.0001)
