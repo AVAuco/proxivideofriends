@@ -214,31 +214,101 @@ Typical failure modes include:
 
 ## 📁 Repository structure
 
-```text
-ProxiVideoFriends/
-├── README.md
-├── assets/
+The code is available in this repository. The dataset will be released soon as a downloadable ZIP file, and we recommend placing it at the same directory level as the repository. Similarly, the output directory used to store trained models should also be created at that same level.
 
+```text
+workspace/
+├── ProxiVideoFriends/          # source code repository
+│   ├── assets/
+│   ├── dataset_utils/
+│   ├── evaluation/
+│   ├── scripts/
+│   ├── train/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── environment.yml
+│   └── requirements.txt
+├── ProxiVideoFriends.zip       # dataset archive (to be released soon)
+├── dataset/                    # extracted dataset directory
+└── output_models/              # saved checkpoints, logs, and results
 ```
-**COMING SOON**
+
+
+---
+
+## 📦 Dataset
+
+The **ProxiVideoFriends** dataset will be available for download soon.
+
+It will be distributed as a **ZIP file** containing all the data required for training and evaluation. Once downloaded, extract it at the same directory level as this repository.
+
+> **Important:** when training, use the path to the **extracted dataset folder**, not the ZIP file.
 
 ------------------------------------------------------------------------
 
 ## ⚙️ Installation
 
-**COMING SOON**
+Clone the repository:
+
+```bash
+git clone <YOUR_REPO_URL>
+cd ProxiVideoFriends
+```
+
+You can install the dependencies using either **Conda** or **pip**.
+
+### Option 1: Conda
+
+```bash
+conda env create -f environment.yml
+conda activate proxivideofriends
+```
+
+### Option 2: pip
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
 ------------------------------------------------------------------------
 
 ## 🏋️ Training
 
-**COMING SOON**
+To train a model, go to the `scripts/` directory and run:
+
+```bash
+cd scripts
+python3 run_train.py \
+  --datasetDIR <path_to_dataset> \
+  --outModelsDIR <path_to_output_models> \
+  [--task {proxemics,relationship,multitask}] \
+  [--backbone {ResNet18,mViTv2}] \
+  [--fusion {crossAttention,CLS}] \
+  [--audio] \
+  [--onlyPairRGB]
+```
+
+> Additional hyperparameters such as batch size, learning rate, number of epochs, window size, stride, optimizer, or frozen layers can also be configured through command-line arguments in `run_train.py`.
+
+- The `--datasetDIR` argument must point to the dataset root directory.
+- The `--outModelsDIR` argument must point to the directory where experiment outputs will be stored.
+- Trained models are organized automatically inside the output directory according to the selected configuration.
 
 ------------------------------------------------------------------------
 
-## 📏 Inference
+## 🧪 Testing
 
-**COMING SOON**
+To evaluate a trained model, go to the `scripts/` directory and run:
+
+```bash
+cd scripts
+python3 run_test.py \
+  --model_dir <path_to_trained_model_dir> \
+  [--checkpoint_name {model_best.pt,model_last.pt}] \
+  [--device cuda]
+```
 
 ------------------------------------------------------------------------
 
