@@ -221,6 +221,7 @@ workspace/
 ├── ProxiVideoFriends/          # source code repository
 │   ├── assets/
 │   ├── dataset_utils/
+│   ├── demo/                   # demo script and best multitask model chkp
 │   ├── evaluation/
 │   ├── scripts/
 │   ├── train/
