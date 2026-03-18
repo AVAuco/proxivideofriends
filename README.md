@@ -305,7 +305,8 @@ python3 run_demo.py \
 The demo script performs the following steps:
 
 - Extracts video frames at 24 fps
-- Detects the two people involved and generates clippings
+- Detects the two people involved using [**YOLO11**](https://github.com/ultralytics/ultralytics) to obtain person bounding boxes
+- Generates clippings from the detected bounding boxes
 - Loads the pretrained multitask model
 - Runs inference for proxemics and relationship recognition
 - Saves the predictions to a JSON file
