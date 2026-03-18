@@ -275,6 +275,50 @@ pip install -r requirements.txt
 
 ------------------------------------------------------------------------
 
+## 🚀 Pretrained Model
+
+We provide the best checkpoint of 🏆 **ours Temporal + Multitask Model**  in the `demo/` folder for quick inference and reproducibility.
+
+- **Model directory:** `demo/best_model_multitask/`
+- **Best checkpoint:** `demo/best_model_multitask/model_best.pt`
+- **Saved configuration:** `demo/best_model_multitask/config.json`
+
+This pretrained model corresponds to the best multitask checkpoint obtained during training and can be directly used with the demo script below.
+
+------------------------------------------------------------------------
+
+
+## 🎥 Demo
+
+We include a simple demo script to run inference on a short video using the pretrained multitask model and obtain proxemics and relationship predictions.
+
+To try the demo, go to the `demo/` directory and run:
+
+```bash
+cd demo/
+python3 run_demo.py \
+  --videoPath video_demo/video1.mp4 \
+  --model_dir best_model_multitask/ \
+  --outputDir ../../demo_output
+```
+### Output
+The demo script performs the following steps:
+
+- Extracts video frames at 24 fps
+- Detects the two people involved and generates clippings
+- Loads the pretrained multitask model
+- Runs inference for proxemics and relationship recognition
+- Saves the predictions to a JSON file
+
+The main outputs are:
+
+- `demo_output/frames_24fps/`
+- `demo_output/clippings/`
+- `demo_output/demo_prediction.json`
+
+The JSON file contains the predicted proxemics labels and the relationship class for the input video.
+
+
 ## 🏋️ Training
 
 To train a model, go to the `scripts/` directory and run:
