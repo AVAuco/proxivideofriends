@@ -82,6 +82,8 @@ dependencies:
       - pandas==2.3.1
       - pillow==11.0.0
       - platformdirs==4.3.8
+      - polars==1.39.2
+      - polars-runtime-32==1.39.2
       - portalocker==3.2.0
       - protobuf==6.31.1
       - psutil==7.0.0
@@ -125,6 +127,9 @@ dependencies:
       - typing-extensions==4.12.2
       - typing-inspection==0.4.1
       - tzdata==2025.2
+      - ultralytics==8.4.23
+      - ultralytics-thop==2.0.18
       - urllib3==2.4.0
       - wandb==0.20.1
       - yacs==0.1.8
+prefix: /opt/data/isajim/miniconda3/envs/proxivideofriends
