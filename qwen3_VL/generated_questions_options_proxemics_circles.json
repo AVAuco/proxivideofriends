@@ -1,0 +1,20 @@
+{
+    "physical_interaction_definition": [
+        "Given that physical interaction is defined as any form of direct bodily contact between two people, it encompasses any instance where any part of their bodies comes into physical contact.\n\n",
+        "Considering that physical interaction refers to any type of direct contact involving the body between two individuals, it includes any occasion where any part of their bodies physically touches.\n\n",
+        "Given that physical interaction denotes any direct contact between two people's bodies, it covers every situation where any body part of one person touches another.\n\n",
+        "Since physical interaction is defined as any instance of direct bodily connection between two individuals, it covers all scenarios where any part of their bodies comes into contact.\n\n",
+        "Physical interaction, as defined, entails any direct bodily contact between two individuals, capturing any moment when any part of their bodies makes physical contact.\n\n",
+        "Given that physical interaction represents any form of direct body contact between two people, it accounts for every case where any of their body parts touch each other.\n\n"
+    ],
+    "questions_proxemics": [
+        "Question: Are there any physical interactions between the two persons marked by green and red circles?\n\n",
+        "Question: Is there any physical interaction between the two people highlighted by green and red circles?\n\n",
+        "Question: Are there physical interactions happening between the individuals represented by the green and red circles?\n\n",
+        "Question: Do the individuals marked with green and red circles exhibit any physical interactions?\n\n",
+        "Question: Are there instances of physical interaction between the persons depicted with green and red circles?\n\n",
+        "Question: Do the individuals represented by the green and red circles have any form of physical interaction?\n\n"
+    ],
+    "answer_choices_proxemics": "Possible answers choices:\nA) Hand-to-Hand\nB) Hand-to-Shoulder\nC) Shoulder-to-Shoulder\nD) Hand-to-Torso\nE) Hand-to-Elbow\nF) Elbow-to-Shoulder\nG) None of them\n\n",
+    "output_proxemics": "Output: Answer with only the letters in the format: \"Answer: (X, Y, ...)\" where X, Y are the correct digit choices."
+}
