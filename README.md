@@ -223,6 +223,7 @@ workspace/
 │   ├── dataset_utils/
 │   ├── demo/                   # demo script and best multitask model chkp
 │   ├── evaluation/
+│   ├── qwen3_VL/               # code for testing QwenVL3 on ProxiVideoFriends
 │   ├── scripts/
 │   ├── train/
 │   ├── .gitignore
@@ -355,6 +356,36 @@ python3 run_test.py \
   [--checkpoint_name {model_best.pt,model_last.pt}] \
   [--device cuda]
 ```
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+## 🧩 QwenVL3
+
+The `qwen3_VL/` directory contains the code to evaluate **Qwen3-VL-30B** on **ProxiVideoFriends**.
+
+To run the Qwen3-VL baseline, move to the `qwen3_VL/` directory, create the environment, and install the dependencies:
+
+```bash
+cd qwen3_VL
+conda env create -f environment.yml
+conda activate qwenVL3
+```
+Then run:
+
+```bash
+python3 run_test_QwenVL3.py \
+  --datasetDIR ../../dataset/ \
+  --resultDIR ../../ \
+  [--set {1/2}] 
+```
+
+### Output
+The demo script performs the following steps:
+- Loads the test split of ProxiVideoFriends
+- Uses the preprocessed frame sequences provided with the dataset, where the target pair is already marked with colored circles
+- Builds video clips, runs Qwen3-VL-30B inference, and computes AP / mAP
+- Saves cached responses and final evaluation results as JSON files
+
 
 ------------------------------------------------------------------------
 
