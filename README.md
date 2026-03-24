@@ -401,6 +401,9 @@ If you use this repository, dataset, or method in your research, please cite:
   volume    = {1},
   pages     = {107--116},
   year      = {2026},
+  publisher={SciTePress},
+  organization={INSTICC},
+  doi={10.5220/0014345000004084},
   isbn      = {978-989-758-804-4},
   issn      = {2184-4321}
 }
