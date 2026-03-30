@@ -30,32 +30,59 @@ def generate_audio_embeddings(sequences, audio_dir, embedding_path, fps=24, mode
     # Create output directory if it does not exist
     os.makedirs(embedding_path, exist_ok=True)
 
+    # Cache files per episode to optimize search
+    files_by_episode = {}
+
     for seq in sequences:
         episode = seq["episode"]
-        start_frame = seq["frames"][0]
-        end_frame = seq["frames"][-1]
-        # Expected audio file for the full episode
-        audio_path = os.path.join(audio_dir, f"episode{episode}audio.wav")
-        if not os.path.exists(audio_path):
-            print(f"[WARNING] Audio not found: {audio_path}")
-            continue
+        start_frame = int(seq["frames"][0])
+        end_frame = int(seq["frames"][-1])
+        
         # Save one embedding per temporal sequence
-        out_path = os.path.join(embedding_path, f"{episode}_{start_frame}_{end_frame}.npy")
+        out_path = os.path.join(embedding_path, f"{episode}_{seq['frames'][0]}_{seq['frames'][-1]}.npy")
         # Skip if the embedding was already generated
         if os.path.exists(out_path):
             continue  # Already generated
-        
-        print(f"[INFO] Generating embedding for {out_path}")
 
-        # Load full episode audio
-        # audio shape: (channels, num_samples)
-        audio, sr = torchaudio.load(audio_path)  # audio.shape: (channels, samples rate)
-        # Convert frame indices into audio sample positions
-        start_sample = int(int(start_frame) / fps * sr) # *sr para pasar a Hz del vídeo
-        end_sample = int(int(end_frame) / fps * sr)
+        # Get list of audio files for this episode
+        if episode not in files_by_episode:
+            # Files expected as episode{ep}_{start}_{end}.wav
+            files_by_episode[episode] = [f for f in os.listdir(audio_dir) if f.startswith(f"episode{episode}_") and f.endswith(".wav")]
+
+        # Find the file that contains the sequence
+        audio_path = None
+        t_start = 0
+        for f in files_by_episode[episode]:
+            try:
+                # Parse boundaries from filename: episodeXX_START_END.wav
+                parts = f.replace(".wav", "").split("_")
+                ts = int(parts[1])
+                te = int(parts[2])
+                if ts <= start_frame and end_frame <= te:
+                    audio_path = os.path.join(audio_dir, f)
+                    t_start = ts
+                    break
+            except (IndexError, ValueError):
+                continue
+
+        if not audio_path:
+            # print(f"[WARNING] No tramo found for episode {episode} frames {start_frame}-{end_frame}")
+            continue
         
-        # Crop the audio segment aligned with the visual sequence
-        segment = audio[:, start_sample:end_sample]  # (channels, segment_samples)
+        print(f"[INFO] Generating embedding for {out_path} using {os.path.basename(audio_path)}")
+
+        # Load tramo audio
+        audio, sr = torchaudio.load(audio_path)
+        
+        # Relative offset in the tramo
+        rel_start = start_frame - t_start
+        rel_end = end_frame - t_start
+        
+        start_sample = int(rel_start / fps * sr)
+        end_sample = int(rel_end / fps * sr)
+        
+        # Crop the audio segment
+        segment = audio[:, start_sample:end_sample]
 
         # Resample to 16 kHz if needed, since Whisper expects 16 kHz audio
         if sr != 16000:
