@@ -30,7 +30,7 @@ from train.trainer import fit
 def parse_args():
     parser = argparse.ArgumentParser(description='Training and testing script.')
     # Training hyperparameters
-    parser.add_argument('--batch',type=int,  help='Size of each batch', required=False, default=16)
+    parser.add_argument('--batch',type=int,  help='Size of each batch', required=False, default=16)#32
     parser.add_argument('--epoch', type=int,  help='Number of epochs', required=False, default=25)
     parser.add_argument('--opt',type=str,  help='optimizer', required=False, default="AdamW")
     parser.add_argument('--lr', type=float,  help='lrate', required=False, default=0.0001)
@@ -111,7 +111,7 @@ labels_dir = os.path.join(datasetDir, 'labels/')
 base_dataset_path = os.path.join(datasetDir, 'preprocessed_dataset')
 output_dir_models = os.path.join(outputDir, 'output_models')
 
-base_audio_path = os.path.join(datasetDir, 'wavs') 
+base_audio_path = os.path.join(datasetDir, 'labeled_wavs') 
 audio_emmbeddings_dir = os.path.join(datasetDir, 'audio_embeddings')
 
 # -----------------------------

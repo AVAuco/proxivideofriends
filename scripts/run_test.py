@@ -52,7 +52,7 @@ labels_dir = os.path.join(cfg["datasetDir"], 'labels/')
 
 base_dataset_path = os.path.join(cfg["datasetDir"], 'preprocessed_dataset')
 
-base_audio_path = os.path.join(cfg["datasetDir"], 'wavs') 
+base_audio_path = os.path.join(cfg["datasetDir"], 'labeled_wavs') 
 audio_emmbeddings_dir = os.path.join(cfg["datasetDir"], 'audio_embeddings')
 multitask=True
 if cfg["task"] == "proxemics":
